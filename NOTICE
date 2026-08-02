@@ -1,0 +1,43 @@
+Khelo Tech Work Platform
+========================
+
+This software is a modified fork of Plane (https://github.com/makeplane/plane),
+originally copyright Plane Software, Inc. and contributors, licensed under the
+GNU Affero General Public License v3.0 (AGPL-3.0).
+
+Modifications copyright (c) 2026 Khelo Tech and contributors.
+
+Upstream project
+----------------
+Name:    Plane
+Source:  https://github.com/makeplane/plane
+License: AGPL-3.0-only (see LICENSE.txt)
+Tag:     v1.4.0 (fork base)
+
+Khelo Tech modifications
+------------------------
+This fork is maintained internally by Khelo Tech for company use. Notable
+areas of change relative to upstream Plane Community Edition include:
+
+- Product rebrand (name, colours, logos, email templates)
+- Internal deployment tooling and Bitbucket Pipelines CI
+- Bitbucket Cloud read-only commit ingest and identity linking
+- Custom fields on work items
+- Time tracking and timesheets
+- Work item and project templates
+- Workflow automation and approval gates
+- Extended analytics and dashboards
+- Intake triage defaults and cycle auto-rollover
+
+Git remotes (intended)
+----------------------
+origin   – Khelo Tech Bitbucket repository (fetch + push)
+upstream – https://github.com/makeplane/plane.git (fetch only)
+
+SPDX headers on source files that retain upstream copyright must not be
+removed. New Khelo Tech modules should carry both the AGPL identifier and
+an attribution to Khelo Tech where appropriate.
+
+Contact
+-------
+Internal engineering — Khelo Tech

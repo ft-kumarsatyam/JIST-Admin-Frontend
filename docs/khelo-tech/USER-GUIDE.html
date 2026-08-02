@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Satyam Kumar" />
+  <title>JIST User Guide</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">@page {
+size: A4;
+margin: 18mm 16mm;
+}
+:root {
+--ink: #1c1e21;
+--muted: #5c6169;
+--rule: #dfe3e8;
+--accent: #4ea7fc;
+--accent-dark: #2f6fb0;
+--code-bg: #f5f7fa;
+--warn-bg: #fff8e6;
+--warn-border: #e0a90c;
+}
+html {
+font-size: 10.5pt;
+}
+body {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+color: var(--ink);
+line-height: 1.55;
+max-width: none;
+margin: 0;
+padding: 0;
+hyphens: none;
+}
+
+header#title-block-header {
+border-bottom: 3px solid var(--accent);
+padding-bottom: 1.1em;
+margin-bottom: 2.2em;
+}
+h1.title {
+font-size: 26pt;
+font-weight: 700;
+letter-spacing: -0.02em;
+margin: 0 0 0.15em;
+color: var(--ink);
+}
+p.subtitle {
+font-size: 13pt;
+color: var(--accent-dark);
+font-weight: 500;
+margin: 0 0 0.3em;
+}
+p.date {
+font-size: 9.5pt;
+color: var(--muted);
+margin: 0;
+}
+
+h1 {
+font-size: 17pt;
+font-weight: 700;
+margin: 1.9em 0 0.6em;
+padding-bottom: 0.25em;
+border-bottom: 1.5px solid var(--rule);
+break-after: avoid;
+break-inside: avoid;
+}
+h2 {
+font-size: 13pt;
+font-weight: 700;
+margin: 1.5em 0 0.5em;
+color: var(--accent-dark);
+break-after: avoid;
+}
+h3 {
+font-size: 11pt;
+font-weight: 700;
+margin: 1.2em 0 0.4em;
+break-after: avoid;
+}
+p {
+margin: 0 0 0.75em;
+orphans: 3;
+widows: 3;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1em 0 1.3em;
+font-size: 9.5pt;
+break-inside: avoid;
+}
+thead th {
+background: var(--accent);
+color: #fff;
+font-weight: 600;
+text-align: left;
+padding: 7px 9px;
+border: none;
+}
+tbody td {
+padding: 6px 9px;
+border-bottom: 1px solid var(--rule);
+vertical-align: top;
+}
+tbody tr:nth-child(even) {
+background: #fafbfc;
+}
+
+code {
+font-family: "SF Mono", Menlo, Consolas, monospace;
+font-size: 0.88em;
+background: var(--code-bg);
+padding: 1.5px 4px;
+border-radius: 3px;
+color: #b5316a;
+}
+pre {
+background: var(--code-bg);
+border: 1px solid var(--rule);
+border-left: 3px solid var(--accent);
+border-radius: 4px;
+padding: 10px 12px;
+overflow-x: auto;
+font-size: 8.8pt;
+line-height: 1.45;
+margin: 0.9em 0 1.2em;
+break-inside: avoid;
+white-space: pre-wrap;
+word-wrap: break-word;
+}
+pre code {
+background: none;
+padding: 0;
+color: var(--ink);
+font-size: inherit;
+}
+
+ul,
+ol {
+margin: 0 0 0.9em;
+padding-left: 1.4em;
+}
+li {
+margin-bottom: 0.3em;
+}
+
+strong {
+font-weight: 700;
+color: #000;
+}
+hr {
+border: none;
+border-top: 1px solid var(--rule);
+margin: 2em 0;
+}
+blockquote {
+border-left: 3px solid var(--warn-border);
+background: var(--warn-bg);
+margin: 1em 0;
+padding: 0.6em 1em;
+color: #6b5300;
+}
+blockquote p:last-child {
+margin-bottom: 0;
+}
+a {
+color: var(--accent-dark);
+text-decoration: none;
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">JIST User Guide</h1>
+<p class="subtitle">Khelo Tech — Product, Tech &amp; Testing</p>
+<p class="author">Satyam Kumar</p>
+<p class="date">August 2026</p>
+</header>
+<blockquote>
+<p>Created by Satyam Kumar Welcome to JIST, the tool Khelo Tech uses to
+plan and track work across the Product, Tech, and Testing teams.</p>
+</blockquote>
+<p>This guide is for everyone who uses JIST day to day. If you
+administer the server, read the Admin Guide instead.</p>
+<p>JIST runs on <strong>our own server</strong>. Nothing you write here
+leaves the company.</p>
+<hr />
+<h1 id="getting-in">1. Getting in</h1>
+<h2 id="your-account-is-created-for-you">Your account is created for
+you</h2>
+<p>You cannot sign yourself up. Self-registration is switched off
+deliberately, so the only people inside JIST are people who work
+here.</p>
+<p>An administrator creates your account and gives you the address and
+your first password. If you do not have one, ask your team lead — do not
+look for a “Sign up” link, there isn’t one.</p>
+<h2 id="signing-in">Signing in</h2>
+<ol type="1">
+<li>Open the JIST address in your browser. Chrome, Firefox, Safari, and
+Edge all work.</li>
+<li>Enter your <strong>work email</strong> and password.</li>
+<li>You land on your workspace.</li>
+</ol>
+<p>There is no “Sign in with Google” button and no magic-link email.
+Email and password is the only way in right now. That may change later;
+the Admin Guide covers how.</p>
+<h2 id="forgotten-password">Forgotten password</h2>
+<p>Our server does not send email yet, which means the “Forgot password”
+flow cannot reach you. <strong>Ask an administrator to reset it for
+you.</strong> They can set a new password directly.</p>
+<h2 id="first-thing-to-do">First thing to do</h2>
+<p>Change the password you were given. Click your avatar in the
+bottom-left corner, go to <strong>Settings → Profile</strong>, and set
+something only you know.</p>
+<p>While you are there, fill in your display name and upload a photo.
+Avatars make assignee lists readable at a glance, which matters once a
+project has thirty people in it.</p>
+<hr />
+<h1 id="how-jist-is-organised">2. How JIST is organised</h1>
+<p>Five layers, from biggest to smallest:</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 55%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it is</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Workspace</strong></td>
+<td>The whole company. One workspace: Khelo Tech.</td>
+<td><code>Khelo Tech</code></td>
+</tr>
+<tr>
+<td><strong>Project</strong></td>
+<td>A product, service, or area of work.</td>
+<td><code>Mobile App</code></td>
+</tr>
+<tr>
+<td><strong>Work item</strong></td>
+<td>A single piece of work. The basic unit.</td>
+<td>“Fix crash on checkout”</td>
+</tr>
+<tr>
+<td><strong>Cycle</strong></td>
+<td>A time-boxed sprint inside a project.</td>
+<td><code>Sprint 14</code></td>
+</tr>
+<tr>
+<td><strong>Module</strong></td>
+<td>A feature or theme spanning many work items.</td>
+<td><code>Payments v2</code></td>
+</tr>
+</tbody>
+</table>
+<p>Only administrators create workspaces and projects. You work inside
+the ones you have been added to.</p>
+<p>If you cannot see a project you need, you have not been added to it.
+Ask an administrator — the project is not missing, your membership
+is.</p>
+<hr />
+<h1 id="work-items">3. Work items</h1>
+<p>A work item is a task, bug, feature, or chore. Everything you do in
+JIST comes back to work items.</p>
+<h2 id="creating-one">Creating one</h2>
+<p>Click <strong>New work item</strong> in the project, or open Power K
+with <code>Cmd/Ctrl + K</code> and start typing. You need a title.
+Everything else can wait.</p>
+<p>Write titles someone else can act on. “Login broken” tells a reader
+nothing — broken how, for whom, on what. “Login fails with 500 error on
+Android when email contains a plus sign” can be picked up by anyone.</p>
+<h2 id="the-fields-that-matter">The fields that matter</h2>
+<p><strong>State</strong> — where the item is in its life. Every project
+starts with five, grouped into categories that JIST uses for progress
+charts:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Group</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backlog</td>
+<td><code>backlog</code></td>
+<td>Captured, not committed to</td>
+</tr>
+<tr>
+<td>Todo</td>
+<td><code>unstarted</code></td>
+<td>Committed, not begun</td>
+</tr>
+<tr>
+<td>In Progress</td>
+<td><code>started</code></td>
+<td>Someone is working on it now</td>
+</tr>
+<tr>
+<td>Done</td>
+<td><code>completed</code></td>
+<td>Finished</td>
+</tr>
+<tr>
+<td>Cancelled</td>
+<td><code>cancelled</code></td>
+<td>Deliberately dropped</td>
+</tr>
+</tbody>
+</table>
+<p>Administrators can add states per project. A testing-heavy project
+might add “In Review” or “Ready for QA” between In Progress and
+Done.</p>
+<p><strong>Priority</strong> — Urgent, High, Medium, Low, or None.
+Default is None.</p>
+<p>Be honest here. If everything is Urgent, nothing is, and the priority
+filter becomes useless to everyone. Reserve Urgent for work that
+justifies interrupting someone today.</p>
+<p><strong>Assignee</strong> — who is doing it. A work item can have
+several, but one clear owner beats three vague ones. When everyone owns
+it, nobody does.</p>
+<p><strong>Labels</strong> — free-form tags for slicing work:
+<code>bug</code>, <code>regression</code>, <code>tech-debt</code>,
+<code>customer-reported</code>. Agree on a small set per project and
+stick to it. Twenty near-identical labels are worse than five good
+ones.</p>
+<p><strong>Start and target date</strong> — when work should begin and
+finish.</p>
+<p><strong>Estimate</strong> — relative sizing, if your project has
+estimates enabled.</p>
+<h2 id="descriptions">Descriptions</h2>
+<p>The description is a full rich-text editor. You can:</p>
+<ul>
+<li>Format with headings, bold, lists, and tables</li>
+<li>Paste or drag in <strong>images and files</strong> (up to 5 MB each
+by default)</li>
+<li>Add code blocks with syntax highlighting</li>
+<li>Link to other work items so the relationship is visible from both
+sides</li>
+</ul>
+<p>For a bug, always include: what you did, what you expected, what
+actually happened, and where (browser, device, environment). A bug
+report without reproduction steps usually comes straight back to
+you.</p>
+<h2 id="sub-items-and-relations">Sub-items and relations</h2>
+<p>Break large work into <strong>sub-items</strong>. The parent shows
+progress across its children.</p>
+<p>Link related work with <strong>relations</strong>:</p>
+<ul>
+<li><strong>Blocking / Blocked by</strong> — real sequencing. Use it;
+the dependency shows up on both items.</li>
+<li><strong>Related to</strong> — loose connection, no ordering
+implied.</li>
+<li><strong>Duplicate of</strong> — close the copy, keep the
+original.</li>
+</ul>
+<h2 id="comments-and-activity">Comments and activity</h2>
+<p>Discuss the work on the work item, not in chat. A decision made in a
+direct message is invisible to whoever picks the item up in three
+months.</p>
+<p>Every change is recorded in the activity feed — who changed what,
+when. Nothing is silently overwritten.</p>
+<hr />
+<h1 id="views-and-layouts">4. Views and layouts</h1>
+<p>The same work items can be displayed five ways. Switch freely; you
+are changing the lens, not the data.</p>
+<table>
+<thead>
+<tr>
+<th>Layout</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>List</strong></td>
+<td>Reading quickly, bulk edits</td>
+</tr>
+<tr>
+<td><strong>Board</strong> (kanban)</td>
+<td>Daily standups, seeing flow and pile-ups</td>
+</tr>
+<tr>
+<td><strong>Calendar</strong></td>
+<td>Deadlines and date clashes</td>
+</tr>
+<tr>
+<td><strong>Spreadsheet</strong></td>
+<td>Comparing many fields at once, bulk triage</td>
+</tr>
+<tr>
+<td><strong>Gantt</strong></td>
+<td>Sequencing and dependencies over time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="filtering-and-grouping">Filtering and grouping</h2>
+<p>Filter by state, priority, assignee, label, cycle, module, or date.
+Group by any of the same. “Board grouped by assignee, filtered to this
+cycle” is a standup in one screen.</p>
+<h2 id="saved-views">Saved views</h2>
+<p>Built a filter combination you want back tomorrow? Save it as a
+<strong>View</strong>. Saved views can be private to you or shared with
+the project, so the whole team opens the same screen.</p>
+<p>Views worth creating early:</p>
+<ul>
+<li><strong>My open work</strong> — assigned to me, state not Done or
+Cancelled</li>
+<li><strong>Urgent and High</strong> — priority filter, sorted by target
+date</li>
+<li><strong>Unassigned</strong> — nobody owns it yet, so nobody will do
+it</li>
+<li><strong>Ready for QA</strong> — whatever state your team uses to
+hand over to testing</li>
+</ul>
+<hr />
+<h1 id="cycles-how-we-run-sprints">5. Cycles — how we run sprints</h1>
+<p>A <strong>Cycle</strong> is a sprint: a fixed window with a set of
+work items in it.</p>
+<ol type="1">
+<li>An administrator or project lead creates the cycle with a start and
+end date.</li>
+<li>The team pulls work items into it.</li>
+<li>Progress is tracked with a burn-down chart.</li>
+<li>At the end, unfinished items are moved to the next cycle or back to
+the backlog.</li>
+</ol>
+<p>Only one cycle is active per project at a time. Work items not in any
+cycle sit in the backlog.</p>
+<p><strong>The burn-down chart is the honest view of a sprint.</strong>
+A flat line for four days means the sprint is in trouble regardless of
+how standup sounded.</p>
+<hr />
+<h1 id="modules-grouping-by-feature">6. Modules — grouping by
+feature</h1>
+<p>A <strong>Module</strong> groups work items by feature or theme,
+cutting across cycles. “Payments v2” might span three sprints and
+involve all three teams.</p>
+<p>Use cycles to answer <em>when</em>, and modules to answer
+<em>what</em>. A work item can belong to one cycle and one module at the
+same time.</p>
+<p>Each module has its own progress view, which is what you show when
+someone asks how a feature is tracking.</p>
+<hr />
+<h1 id="pages-documents-inside-jist">7. Pages — documents inside
+JIST</h1>
+<p><strong>Pages</strong> are collaborative documents living inside a
+project. Several people can edit one simultaneously and see each other’s
+cursors.</p>
+<p>Good uses:</p>
+<ul>
+<li>Meeting notes and decision records</li>
+<li>Specs and requirements</li>
+<li>Runbooks and how-tos</li>
+<li>Retrospectives</li>
+</ul>
+<p>You can turn any line of a page into a work item, which makes them
+useful for turning a planning discussion into tracked work without
+retyping anything.</p>
+<hr />
+<h1 id="analytics">8. Analytics</h1>
+<p><strong>Analytics</strong> shows what is actually happening: work
+items by state, by assignee, by priority, completion over time.</p>
+<p>Use it in retros to check whether what the team felt matches what
+happened. Both are useful, and they are not always the same.</p>
+<hr />
+<h1 id="notifications">9. Notifications</h1>
+<p>The bell icon shows updates on work you are involved in —
+assignments, mentions, comments, state changes.</p>
+<p><strong>Because our server does not send email yet, the bell is the
+only place you will see these.</strong> Check it. Nothing will land in
+your inbox.</p>
+<p>Mention someone with <code>@</code> in a comment to notify them
+directly. Subscribe to any work item to follow it without being
+assigned.</p>
+<hr />
+<h1 id="team-conventions">10. Team conventions</h1>
+<p>These are ours, not JIST’s defaults.</p>
+<p><strong>One workspace.</strong> Everything lives in
+<code>Khelo Tech</code>. Work items can only be linked and moved inside
+a single workspace, so splitting into several would cut Product off from
+Tech and Tech off from Testing.</p>
+<p><strong>Every work item has an owner.</strong> Unassigned work does
+not get done. If you cannot assign it, it belongs in the backlog, not in
+the cycle.</p>
+<p><strong>Bugs need reproduction steps.</strong> Testing will send it
+back otherwise, and you will both have wasted a day.</p>
+<p><strong>Discuss on the work item.</strong> Not in chat. Future you
+will need the reasoning.</p>
+<p><strong>Update state as you go, not at standup.</strong> The board is
+only useful if it is true right now.</p>
+<p><strong>Close what is done.</strong> An item sitting in In Progress
+for three weeks tells everyone the board cannot be trusted.</p>
+<hr />
+<h1 id="keyboard-shortcuts">11. Keyboard shortcuts</h1>
+<p><strong><code>Cmd + K</code> on Mac, <code>Ctrl + K</code> on
+Windows</strong> opens Power K, the command palette. Search, jump to a
+project, or run an action from one box. It is the fastest route to
+anything in JIST — learn this one first.</p>
+<p>With a work item open, single keys edit fields directly without
+reaching for the mouse:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Sets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S</code></td>
+<td>State</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>Priority</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>Assignee</td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td>Labels</td>
+</tr>
+</tbody>
+</table>
+<p>JIST ships a full, always-current list built into the app: click
+<strong>Help</strong> at the bottom of the sidebar, then
+<strong>Keyboard shortcuts</strong>. Shortcuts change between versions,
+so trust that list over any document, including this one.</p>
+<hr />
+<h1 id="getting-help">12. Getting help</h1>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr>
+<th>Problem</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cannot sign in</td>
+<td>Ask an administrator to reset your password</td>
+</tr>
+<tr>
+<td>Cannot see a project</td>
+<td>Ask to be added — you are not a member of it</td>
+</tr>
+<tr>
+<td>Cannot create a project</td>
+<td>Correct; only administrators can</td>
+</tr>
+<tr>
+<td>Upload rejected</td>
+<td>File is over the 5 MB limit</td>
+</tr>
+<tr>
+<td>Something looks broken</td>
+<td>Tell an administrator with a screenshot and the page URL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>JIST version:</strong> 1.4.0 Community Edition, self-hosted
+by Khelo Tech.</p>
+</body>
+</html>

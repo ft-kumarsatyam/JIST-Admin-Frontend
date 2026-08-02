@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Satyam Kumar" />
+  <title>JIST Administrator Guide</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">JIST Administrator Guide</h1>
+<p class="subtitle">Khelo Tech — Self-Hosted Deployment</p>
+<p class="author">Satyam Kumar</p>
+<p class="date">August 2026</p>
+</header>
+<blockquote>
+<p>Created by Satyam Kumar Operating manual for the Khelo Tech
+self-hosted JIST instance. Written for whoever keeps the server
+running.</p>
+</blockquote>
+<p>If you only use JIST to track work, read the User Guide instead.</p>
+<hr />
+<h1 id="what-we-are-running">1. What we are running</h1>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Product</strong></td>
+<td>JIST 1.4.0, Community Edition</td>
+</tr>
+<tr>
+<td><strong>Instance name</strong></td>
+<td>Khelo Tech</td>
+</tr>
+<tr>
+<td><strong>Licence</strong></td>
+<td>AGPL-3.0, free, unlimited users</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Docker Compose, prebuilt <code>khelo-tech/*</code> images</td>
+</tr>
+<tr>
+<td><strong>Compose project</strong></td>
+<td><code>plane-app</code></td>
+</tr>
+<tr>
+<td><strong>Install directory</strong></td>
+<td><code>~/Projects/plane-selfhost</code></td>
+</tr>
+<tr>
+<td><strong>Current address</strong></td>
+<td><code>http://localhost:8080</code> (trial on a MacBook)</td>
+</tr>
+</tbody>
+</table>
+<p>The current instance is a <strong>trial on a laptop</strong>. Section
+12 covers moving to the production server.</p>
+<h2 id="community-edition-limits">Community Edition limits</h2>
+<p>Two things worth knowing before you promise them to anyone:</p>
+<ul>
+<li><strong>No Teamspaces.</strong> That is a paid feature. Team
+structure is expressed through projects, roles, labels, and
+modules.</li>
+<li><strong>No SAML or OIDC.</strong> Google and GitHub OAuth are
+available; enterprise SSO is not.</li>
+</ul>
+<p>Everything in the User Guide — work items, cycles, modules, views,
+pages, analytics — is in Community Edition.</p>
+<hr />
+<h1 id="the-stack">2. The stack</h1>
+<p><strong>NestJS API + Postgres.</strong> No Django, Celery, Gunicorn,
+or RabbitMQ.</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 35%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr>
+<th>Container</th>
+<th>Image / build</th>
+<th>Job</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>proxy</code></td>
+<td><code>khelo-tech/plane-proxy</code></td>
+<td>Caddy. Front door, routes everything, terminates TLS</td>
+</tr>
+<tr>
+<td><code>web</code></td>
+<td><code>khelo-tech/plane-frontend</code></td>
+<td>Main app at <code>/</code></td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td><code>khelo-tech/plane-admin</code></td>
+<td>God Mode at <code>/admin</code></td>
+</tr>
+<tr>
+<td><code>space</code></td>
+<td><code>khelo-tech/plane-space</code></td>
+<td>Public shared views at <code>/spaces</code></td>
+</tr>
+<tr>
+<td><code>live</code></td>
+<td><code>khelo-tech/plane-live</code></td>
+<td>Real-time collaborative editing</td>
+</tr>
+<tr>
+<td><code>api</code></td>
+<td><code>khelo-tech/plane-backend</code> (Nest)</td>
+<td>NestJS API (<code>:8000</code>) — <strong>only</strong> product
+API</td>
+</tr>
+<tr>
+<td><code>migrator</code></td>
+<td>same Nest image</td>
+<td><code>prisma db push</code>, then exits</td>
+</tr>
+<tr>
+<td><code>plane-db</code></td>
+<td><code>postgres:15.7-alpine</code></td>
+<td>Postgres — <strong>all your data</strong></td>
+</tr>
+<tr>
+<td><code>plane-redis</code></td>
+<td><code>valkey/valkey:7.2.11-alpine</code></td>
+<td>Cache / live</td>
+</tr>
+<tr>
+<td><code>plane-minio</code></td>
+<td><code>minio/minio</code></td>
+<td>File storage — <strong>all attachments</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Compose file:
+<code>deployments/cli/community/docker-compose.yml</code><br />
+Legacy Django compose (do not use):
+<code>docker-compose.django.legacy.yml</code></p>
+<h2 id="routing">Routing</h2>
+<p>Caddy sends traffic by path prefix:</p>
+<pre><code>/admin/*  → admin:3000
+/spaces/*    → space:3000
+/live/*      → live:3000
+/api/*       → api:8000
+/auth/*      → api:8000
+/static/*    → api:8000
+/uploads/*   → plane-minio:9000
+/*           → web:3000</code></pre>
+<h2 id="volumes">Volumes</h2>
+<p>The two that matter are <code>pgdata</code> and <code>uploads</code>.
+Lose either and you have lost the deployment.</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 52%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Volume</th>
+<th>Contents</th>
+<th>Critical</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>plane-app_pgdata</code></td>
+<td>Postgres. Every work item, comment, user</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td><code>plane-app_uploads</code></td>
+<td>MinIO. Every attachment and avatar</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td><code>plane-app_redisdata</code></td>
+<td>Cache</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>plane-app_proxy_data</code></td>
+<td>TLS certificates</td>
+<td>Regenerable</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="day-to-day-operations">3. Day-to-day operations</h1>
+<p>Run everything from the install directory. <strong>The
+<code>-p plane-app</code> flag matters</strong> — the project name does
+not match the directory name, so omitting it creates a second, empty
+stack.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Projects/plane-selfhost</span></code></pre></div>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Status</td>
+<td><code>docker compose -p plane-app ps</code></td>
+</tr>
+<tr>
+<td>Start</td>
+<td><code>docker compose -p plane-app up -d</code></td>
+</tr>
+<tr>
+<td>Stop</td>
+<td><code>docker compose -p plane-app stop</code></td>
+</tr>
+<tr>
+<td>Restart one service</td>
+<td><code>docker compose -p plane-app restart api</code></td>
+</tr>
+<tr>
+<td>Logs, follow</td>
+<td><code>docker compose -p plane-app logs -f api</code></td>
+</tr>
+<tr>
+<td>Logs, recent</td>
+<td><code>docker compose -p plane-app logs --tail=200 api</code></td>
+</tr>
+<tr>
+<td>Shell into a container</td>
+<td><code>docker exec -it plane-app-api-1 bash</code></td>
+</tr>
+<tr>
+<td>Nest / Prisma shell</td>
+<td><code>cd plane-backend &amp;&amp; pnpm prisma studio</code> (or
+<code>npx nest start</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Health check in one line:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-o</span> /dev/null <span class="at">-w</span> <span class="st">&quot;%{http_code}\n&quot;</span> http://localhost:8080/api/instances/</span></code></pre></div>
+<p><code>200</code> means the API, database, and proxy are all
+working.</p>
+<p><strong>Never run <code>docker compose down -v</code>.</strong> The
+<code>-v</code> deletes volumes, which means the database. There is no
+undo.</p>
+<hr />
+<h1 id="god-mode">4. God Mode</h1>
+<p>God Mode is the instance admin panel at
+<strong><code>/admin</code></strong>. It controls settings for the whole
+server, above and across all workspaces.</p>
+<p>Reach it from your avatar menu, or go to the URL directly.</p>
+<p>Sections:</p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Section</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>General</strong></td>
+<td>Instance name, telemetry</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>SMTP settings</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Sign-up, password login, magic link, OAuth</td>
+</tr>
+<tr>
+<td><strong>Artificial Intelligence</strong></td>
+<td>OpenAI key for AI features</td>
+</tr>
+<tr>
+<td><strong>Images</strong></td>
+<td>Unsplash key for cover images</td>
+</tr>
+<tr>
+<td><strong>Workspaces</strong></td>
+<td>Every workspace on the instance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="instance-admin-vs-workspace-admin">Instance admin vs workspace
+admin</h2>
+<p>Two different things, easily confused:</p>
+<ul>
+<li><strong>Instance admin</strong> — owns the server. Configures God
+Mode. Created once at first boot.</li>
+<li><strong>Workspace admin</strong> — owns a workspace. Manages members
+and projects inside it. Has no God Mode access.</li>
+</ul>
+<p>One person can be both. They are separate grants.</p>
+<hr />
+<h1 id="authentication-how-we-have-it-configured">5. Authentication —
+how we have it configured</h1>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 7%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ENABLE_SIGNUP</code></td>
+<td><code>0</code></td>
+<td>Invite-only. Nobody self-registers</td>
+</tr>
+<tr>
+<td><code>ENABLE_EMAIL_PASSWORD</code></td>
+<td><code>1</code></td>
+<td>The only way in</td>
+</tr>
+<tr>
+<td><code>ENABLE_MAGIC_LINK_LOGIN</code></td>
+<td><code>0</code></td>
+<td>Needs SMTP, which we do not have</td>
+</tr>
+<tr>
+<td><code>DISABLE_WORKSPACE_CREATION</code></td>
+<td><code>1</code></td>
+<td>Only instance admins create workspaces</td>
+</tr>
+</tbody>
+</table>
+<p>Workspace creation is restricted on purpose. Work items can only be
+linked and moved within a single workspace, so a team spinning up their
+own would cut themselves off from everyone else. That is painful to undo
+later.</p>
+<h2 id="changing-these-settings-read-this-before-you-try">Changing these
+settings — read this before you try</h2>
+<p>There are two places these values live, and they behave
+differently.</p>
+<p><strong><code>variables.env</code> / <code>plane.env</code> only
+seeds Nest on first boot</strong> for values the API reads from env.
+Instance configuration rows (SMTP, OAuth toggles, etc.) live in Postgres
+(<code>InstanceConfiguration</code>) and are edited in <strong>God
+Mode</strong>.</p>
+<p>So:</p>
+<ul>
+<li><strong>On a running instance</strong> → change auth/SMTP in
+<strong>God Mode</strong>.</li>
+<li><strong>On a fresh install</strong> → set
+<code>SESSION_SECRET</code>, DB passwords, and <code>CORS_ORIGINS</code>
+in <code>variables.env</code> before the first <code>up</code>.</li>
+</ul>
+<p>Force an instance config flip via SQL if you must (no Django
+shell):</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-i</span> plane-app-plane-db-1 psql <span class="at">-U</span> khelo <span class="at">-d</span> khelo <span class="at">-c</span> <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;UPDATE instance_configurations SET value = &#39;0&#39;, updated_at = NOW() WHERE key = &#39;ENABLE_SIGNUP&#39;;&quot;</span></span></code></pre></div>
+<p>Restart <code>api</code> after that if the value is cached in memory
+(most Nest instance routes re-read DB).</p>
+<hr />
+<h1 id="managing-people">6. Managing people</h1>
+<h2 id="roles">Roles</h2>
+<p>Three, at both workspace and project level:</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
+<thead>
+<tr>
+<th>Role</th>
+<th>Can</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Admin</strong></td>
+<td>Everything, including settings and deleting the project</td>
+</tr>
+<tr>
+<td><strong>Member</strong></td>
+<td>Create and edit work items, cycles, modules, pages</td>
+</tr>
+<tr>
+<td><strong>Guest</strong></td>
+<td>Restricted view. For contractors and outside collaborators</td>
+</tr>
+</tbody>
+</table>
+<p>Give people Member by default. Admin should be a short list — anyone
+with it can delete a project and everything in it.</p>
+<h2 id="adding-someone-the-manual-route">Adding someone — the manual
+route</h2>
+<p><strong>We have no SMTP, so invitation emails cannot be
+sent.</strong> Until that changes, adding a person takes two steps:</p>
+<ol type="1">
+<li><strong>Workspace Settings → Members → Add Member</strong>, enter
+their work email, choose a role.</li>
+<li>Tell them their address and password <strong>through a channel you
+trust</strong> — in person, or a password manager. Not a group
+chat.</li>
+</ol>
+<p>Then have them change it at Settings → Profile on first sign-in.</p>
+<p>Section 11 covers configuring SMTP, which replaces this with a normal
+invite link and makes password resets self-service. Worth doing before
+you onboard fifty people.</p>
+<h2 id="resetting-a-password">Resetting a password</h2>
+<p>Without email, the “Forgot password” flow cannot deliver anything.
+Reset it yourself with Prisma Studio or SQL:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> plane-backend <span class="kw">&amp;&amp;</span> <span class="ex">pnpm</span> prisma studio</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or hash a temp password with node + bcrypt, then:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-i</span> plane-app-plane-db-1 psql <span class="at">-U</span> khelo <span class="at">-d</span> khelo <span class="at">-c</span> <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;UPDATE users SET password_hash = &#39;&lt;bcrypt-hash&gt;&#39;, updated_at = NOW() WHERE email = &#39;person@khelotech.com&#39;;&quot;</span></span></code></pre></div>
+<p>Tell them to change it immediately after signing in.</p>
+<h2 id="removing-someone">Removing someone</h2>
+<p>Remove them from <strong>Workspace Settings → Members</strong>. Their
+work items, comments, and history stay — authorship is preserved, access
+is revoked. That is what you want when someone leaves.</p>
+<hr />
+<h1 id="structuring-khelo-tech">7. Structuring Khelo Tech</h1>
+<p>Recommended shape for Product, Tech, and Testing:</p>
+<p><strong>One workspace: <code>Khelo Tech</code>.</strong> Not one per
+team.</p>
+<p><strong>Projects by product or service, not by team.</strong> A
+project called <code>Mobile App</code> that all three teams work in
+beats three projects called Product, Tech, and Testing. Teams
+collaborate on the same work item rather than copying it between
+projects and letting the copies drift.</p>
+<p>Express the teams through:</p>
+<ul>
+<li><strong>Labels</strong> — <code>product</code>,
+<code>backend</code>, <code>frontend</code>, <code>qa</code></li>
+<li><strong>States</strong> — add “Ready for QA” and “In Review” so
+handoffs are visible on the board</li>
+<li><strong>Modules</strong> — group by feature across teams</li>
+<li><strong>Saved views</strong> — one per team, filtered to their
+slice, shared with the project</li>
+</ul>
+<p><strong>Where separate projects do make sense:</strong> genuinely
+separate work with its own backlog and cadence. An internal tools
+project, or infrastructure work.</p>
+<p><strong>Roles:</strong> team leads as project Admin, everyone else
+Member, contractors Guest.</p>
+<hr />
+<h1 id="backups">8. Backups</h1>
+<p><strong>Nothing is backed up automatically. Set this up before the
+team relies on JIST.</strong></p>
+<h2 id="what-to-back-up">What to back up</h2>
+<p><code>plane-app_pgdata</code> and <code>plane-app_uploads</code>.
+Postgres alone is not enough — you would restore every work item with
+every attachment broken.</p>
+<h2 id="database-dump">Database dump</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec plane-app-plane-db-1 pg_dump <span class="at">-U</span> khelo <span class="at">-d</span> khelo <span class="at">-Fc</span> <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span> ~/plane-backups/plane-db-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d-%H%M<span class="va">)</span>.dump</span></code></pre></div>
+<h2 id="attachments">Attachments</h2>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-v</span> plane-app_uploads:/data:ro <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-v</span> ~/plane-backups:/backup <span class="dt">\</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  alpine tar czf /backup/uploads-<span class="va">$(</span><span class="fu">date</span> +%Y%m%d-%H%M<span class="va">)</span>.tar.gz <span class="at">-C</span> /data .</span></code></pre></div>
+<h2 id="daily-via-cron">Daily, via cron</h2>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">0</span> 2 <span class="pp">*</span> <span class="pp">*</span> <span class="pp">*</span> cd ~/Projects/plane-selfhost <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">docker</span> exec plane-app-plane-db-1 pg_dump <span class="at">-U</span> khelo <span class="at">-d</span> khelo <span class="at">-Fc</span> <span class="op">&gt;</span> ~/plane-backups/db-<span class="va">$(</span><span class="fu">date</span> +<span class="dt">\%</span>Y<span class="dt">\%</span>m<span class="dt">\%</span>d<span class="va">)</span>.dump <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> plane-app_uploads:/data:ro <span class="at">-v</span> ~/plane-backups:/backup <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    alpine tar czf /backup/uploads-<span class="va">$(</span><span class="fu">date</span> +<span class="dt">\%</span>Y<span class="dt">\%</span>m<span class="dt">\%</span>d<span class="va">)</span>.tar.gz <span class="at">-C</span> /data .</span></code></pre></div>
+<h2 id="restoring-the-database">Restoring the database</h2>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app stop api</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> backup.dump <span class="kw">|</span> <span class="ex">docker</span> exec <span class="at">-i</span> plane-app-plane-db-1 pg_restore <span class="at">-U</span> khelo <span class="at">-d</span> khelo <span class="at">--clean</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app start api</span></code></pre></div>
+<p><strong>An untested backup is not a backup.</strong> Restore one to a
+throwaway stack this month, and put a reminder in the calendar to do it
+again in six.</p>
+<p>Keep copies off the server. A backup on the same disk as the database
+does not survive the disk failing.</p>
+<hr />
+<h1 id="upgrading">9. Upgrading</h1>
+<p>JIST ships releases regularly. The current version and the latest
+available are both shown at <code>/api/instances/</code>.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Projects/plane-selfhost</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Back up first. Always.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec plane-app-plane-db-1 pg_dump <span class="at">-U</span> khelo <span class="at">-d</span> khelo <span class="at">-Fc</span> <span class="op">&gt;</span> ~/plane-backups/pre-upgrade.dump</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Stop</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app stop</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Pull new images</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app pull</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Start — the migrator applies schema changes automatically</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app up <span class="at">-d</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Watch the migrator finish</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app logs <span class="at">-f</span> migrator</span></code></pre></div>
+<p>Read the release notes before upgrading, especially across a major
+version. Upgrade the trial first and confirm it comes up clean.</p>
+<h2 id="the-official-installer">The official installer</h2>
+<p>JIST publishes a <code>setup.sh</code> with a menu for Install,
+Start, Stop, Restart, Upgrade, View Logs, and Backup. Our stack was
+started with raw <code>docker compose</code> and does not have it. Worth
+adding on the production server:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> <span class="at">-o</span> setup.sh https://github.com/makeplane/plane/releases/latest/download/setup.sh</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x setup.sh</span></code></pre></div>
+<p>Note it expects its own directory layout, so try it on the new server
+rather than retrofitting it here.</p>
+<hr />
+<h1 id="troubleshooting">10. Troubleshooting</h1>
+<h2 id="check-the-obvious-first">Check the obvious first</h2>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app ps</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app logs <span class="at">--tail</span><span class="op">=</span>100 api</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-o</span> /dev/null <span class="at">-w</span> <span class="st">&quot;%{http_code}\n&quot;</span> http://localhost:8080/api/instances/</span></code></pre></div>
+<h2 id="symptoms">Symptoms</h2>
+<p><strong>Site will not load.</strong> Check <code>proxy</code> is up
+and the port is not taken by something else:
+<code>lsof -nP -iTCP:8080 -sTCP:LISTEN</code>.</p>
+<p><strong>API returns 500.</strong> Read <code>logs api</code>. Usually
+the database is unreachable or a migration did not complete.</p>
+<p><strong>Migrator keeps restarting.</strong> Read
+<code>logs migrator</code>. Normally Postgres was not ready in time;
+restarting the migrator alone often clears it.</p>
+<p><strong>Uploads fail.</strong> Check <code>plane-minio</code> is up
+and the file is under <code>FILE_SIZE_LIMIT</code> (5 MB by default).
+Raise it in <code>plane.env</code> and restart the proxy and API.</p>
+<p><strong>Real-time editing not syncing.</strong> Check the
+<code>live</code> container and that <code>/live/*</code> reaches it
+through Caddy.</p>
+<p><strong>Notifications and emails not arriving.</strong> Expected — no
+SMTP configured. See section 11.</p>
+<p><strong>Setting changed in <code>plane.env</code> had no
+effect.</strong> Almost certainly the <code>get_or_create</code>
+behaviour in section 5. Change it in God Mode instead.</p>
+<h2 id="disk">Disk</h2>
+<p>MinIO grows with every attachment. Watch it:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> system df <span class="at">-v</span> <span class="kw">|</span> <span class="fu">grep</span> plane-app</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code></pre></div>
+<p>A full disk stops Postgres from writing, which takes the whole
+instance down.</p>
+<hr />
+<h1 id="configuring-smtp">11. Configuring SMTP</h1>
+<p>The single highest-value improvement available. It gives you emailed
+invites, self-service password resets, and notification emails — and
+removes the manual account handling in section 6.</p>
+<p>Set in <strong>God Mode → Email</strong>, or in
+<code>plane.env</code> before a first boot:</p>
+<pre><code>EMAIL_HOST=smtp.your-provider.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=plane@khelotech.com
+EMAIL_HOST_PASSWORD=your-app-password
+EMAIL_FROM=JIST &lt;plane@khelotech.com&gt;
+EMAIL_USE_TLS=1
+EMAIL_USE_SSL=0</code></pre>
+<p>Send a test from God Mode after saving. Once email works, consider
+enabling magic-link login — it removes passwords from the equation
+entirely.</p>
+<p>Google Workspace and Microsoft 365 both work with an app password.
+Amazon SES is a good choice if you are already on AWS.</p>
+<hr />
+<h1 id="moving-to-the-production-server">12. Moving to the production
+server</h1>
+<p>The current instance is a laptop trial. For 50+ users across three
+teams:</p>
+<h2 id="hardware">Hardware</h2>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Minimum</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vCPU</td>
+<td>4</td>
+<td><strong>8</strong></td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>8 GB</td>
+<td><strong>16 GB</strong></td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>100 GB SSD</td>
+<td><strong>250 GB SSD</strong></td>
+</tr>
+<tr>
+<td>OS</td>
+<td>—</td>
+<td>Ubuntu 22.04 or 24.04 LTS</td>
+</tr>
+</tbody>
+</table>
+<p>Attachments accumulate. Size the disk for a year of them, and monitor
+it.</p>
+<h2 id="configuration-changes">Configuration changes</h2>
+<pre><code># Nest session + CORS (not Gunicorn)
+SESSION_SECRET=&lt;openssl rand -hex 32&gt;
+CORS_ORIGINS=https://plane.khelotech.com
+CORS_ALLOWED_ORIGINS=https://plane.khelotech.com
+
+# Real address, not localhost
+APP_DOMAIN=plane.khelotech.com
+WEB_URL=https://plane.khelotech.com
+
+# Standard ports
+LISTEN_HTTP_PORT=80
+LISTEN_HTTPS_PORT=443
+
+# TLS — Caddy obtains and renews the certificate automatically
+SITE_ADDRESS=plane.khelotech.com
+CERT_EMAIL=admin@khelotech.com
+
+# Do not leave this at the default
+TRUSTED_PROXIES=172.16.0.0/12</code></pre>
+<p><strong>Generate fresh secrets for production.</strong> Do not reuse
+the trial’s <code>SESSION_SECRET</code>,
+<code>LIVE_SERVER_SECRET_KEY</code>, or database passwords:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> rand <span class="at">-hex</span> 32</span></code></pre></div>
+<h2 id="on-trusted_proxies">On <code>TRUSTED_PROXIES</code></h2>
+<p>The default is <code>0.0.0.0/0</code>, which tells Caddy to trust
+<code>X-Forwarded-For</code> from anyone. Any client can then claim any
+IP, which corrupts rate limiting and audit logs. Set it to your Docker
+network range.</p>
+<h2 id="checklist">Checklist</h2>
+<ol type="1">
+<li>Provision the VM, install Docker</li>
+<li>Point DNS at it — internal or public depending on your access
+model</li>
+<li>Copy <code>docker-compose.yml</code> and <code>plane.env</code>,
+then edit as above</li>
+<li>Generate new secrets</li>
+<li>Configure SMTP before onboarding anyone</li>
+<li>First boot, create the instance admin at <code>/admin</code></li>
+<li>Verify auth settings took effect from <code>plane.env</code></li>
+<li>Set up the backup cron and <strong>test a restore</strong></li>
+<li>Create the workspace and projects</li>
+<li>Onboard one team first, then the rest</li>
+</ol>
+<h2 id="access-model">Access model</h2>
+<p>You chose internal-IP access. Two things follow:</p>
+<ul>
+<li><strong>No TLS on a bare IP.</strong> Certificates are issued for
+names, not addresses. Traffic including passwords crosses your network
+in plaintext. Acceptable on a trusted LAN, not over the internet.</li>
+<li><strong>Better:</strong> give it an internal DNS name and a
+certificate, or put it behind the VPN. Either gets you HTTPS without
+exposing it publicly.</li>
+</ul>
+<hr />
+<h1 id="quick-reference">13. Quick reference</h1>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Projects/plane-selfhost</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app ps                      <span class="co"># status</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app up <span class="at">-d</span>                   <span class="co"># start</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app stop                    <span class="co"># stop</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app restart api             <span class="co"># restart Nest</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app logs <span class="at">-f</span> api             <span class="co"># follow logs</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">-p</span> plane-app pull                    <span class="co"># fetch updates</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> plane-app-api-1 sh                  <span class="co"># Nest container shell</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Data / prefs: Prisma Studio from plane-backend, or psql into plane-db</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> http://localhost:8080/api/instances/ <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-m</span> json.tool</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Address</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Main app</td>
+</tr>
+<tr>
+<td><code>/admin</code></td>
+<td>Instance admin</td>
+</tr>
+<tr>
+<td><code>/spaces</code></td>
+<td>Public shared views</td>
+</tr>
+<tr>
+<td><code>/api/instances/</code></td>
+<td>Health and config, no auth needed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Never run <code>docker compose down -v</code>.</strong> It
+deletes the volumes.</p>
+<hr />
+<p><strong>JIST 1.4.0 Community Edition · Khelo Tech · August
+2026</strong></p>
+</body>
+</html>

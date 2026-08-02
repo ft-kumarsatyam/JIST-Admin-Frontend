@@ -1,0 +1,45 @@
+# Optional local infra for FE helpers (Redis / MinIO only).
+# Product API is NestJS in ../plane-backend — owns :8000.
+# No Django, Celery, or RabbitMQ.
+
+services:
+  plane-redis:
+    image: valkey/valkey:7.2.11-alpine
+    restart: unless-stopped
+    networks:
+      - dev_env
+    volumes:
+      - redisdata:/data
+    ports:
+      - "6379:6379"
+
+  plane-minio:
+    image: minio/minio
+    restart: unless-stopped
+    networks:
+      - dev_env
+    entrypoint: >
+      /bin/sh -c "
+      mkdir -p /export/uploads &&
+      minio server /export --console-address ':9090' &
+      sleep 5 &&
+      mc alias set myminio http://localhost:9000 minio minio123 &&
+      mc mb myminio/uploads -p || true
+      && tail -f /dev/null
+      "
+    volumes:
+      - uploads:/export
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+
+volumes:
+  redisdata:
+  uploads:
+
+networks:
+  dev_env:
+    driver: bridge

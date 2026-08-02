@@ -1,0 +1,12 @@
+# DEPRECATED for Khelo / JIST.
+# Django `apps/api` was removed; Nest tests live in ../plane-backend.
+#
+# Use instead:
+#   cd ../plane-backend && docker compose up -d
+#   cd ../plane-backend && pnpm test
+#   cd ../plane-backend && pnpm test:e2e
+#
+# This file is kept only so accidental `docker compose -f docker-compose-test.yml`
+# does not silently resurrect a Django stack. It intentionally has no services.
+
+services: {}

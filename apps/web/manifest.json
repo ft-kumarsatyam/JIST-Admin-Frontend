@@ -1,0 +1,22 @@
+{
+  "theme_color": "#753FC9",
+  "background_color": "#F4EEFD",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "JIST",
+  "short_name": "JIST",
+  "description": "JIST — unified work and sports operations platform.",
+  "icons": [
+    {
+      "src": "/jist-logos/jist-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/jist-logos/jist-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

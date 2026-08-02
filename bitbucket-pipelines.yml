@@ -1,0 +1,50 @@
+# Khelo Tech JIST — Bitbucket Pipelines
+# Builds and pushes Docker images from source on merges to khelo/main.
+#
+# Required repository variables:
+#   DOCKER_REGISTRY   e.g. registry.khelotech.internal or docker.io/khelotech
+#   DOCKER_USERNAME
+#   DOCKER_PASSWORD
+# Optional:
+#   IMAGE_NAMESPACE   default: khelo-plane
+
+image: docker:27
+
+definitions:
+  services:
+    docker:
+      memory: 3072
+
+  steps:
+    - step: &build-and-push
+        name: Build and push images
+        services:
+          - docker
+        size: 2x
+        script:
+          - export IMAGE_NAMESPACE="${IMAGE_NAMESPACE:-khelo-plane}"
+          - export TAG="${BITBUCKET_COMMIT:0:12}"
+          - echo "$DOCKER_PASSWORD" | docker login "$DOCKER_REGISTRY" -u "$DOCKER_USERNAME" --password-stdin
+          - |
+            build_push() {
+              local name="$1"
+              local dockerfile="$2"
+              local context="$3"
+              local full="${DOCKER_REGISTRY}/${IMAGE_NAMESPACE}/${name}"
+              docker build -f "$dockerfile" -t "${full}:${TAG}" -t "${full}:latest" "$context"
+              docker push "${full}:${TAG}"
+              docker push "${full}:latest"
+            }
+            build_push web    apps/web/Dockerfile.web       .
+            build_push admin  apps/admin/Dockerfile.admin   .
+            build_push proxy  apps/proxy/Dockerfile.ce      apps/proxy
+        artifacts:
+          - scripts/khelo/**
+
+pipelines:
+  branches:
+    khelo/main:
+      - step: *build-and-push
+  custom:
+    build-images:
+      - step: *build-and-push
